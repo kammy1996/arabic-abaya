@@ -1,11 +1,22 @@
-import Vue from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify';
-import './scss/home.css';
+import Vue from "vue";
+import App from "./App.vue";
+import vuetify from "./plugins/vuetify";
 
-Vue.config.productionTip = false
+// Font libraries
+import "@fortawesome/fontawesome-free/css/all.css";
+import "material-design-icons-iconfont/dist/material-design-icons.css";
+
+//bootstrap 4.1
+import "bootstrap/dist/css/bootstrap.css";
+
+//fonts
+
+import "./scss/home.css";
+import "./scss/common.css";
+
+Vue.config.productionTip = false;
 
 new Vue({
   vuetify,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
