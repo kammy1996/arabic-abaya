@@ -32,3 +32,61 @@ body {
 .navbar .main-logo {
   margin-top: -20px;
 }
+
+.abaya-cat {
+  text-align: center;
+}
+
+.all-abayas {
+  background: url("../assets/all-abayas.jpg");
+  height: 500px;
+  background-size: cover;
+}
+
+.all-abayas,
+.occasional,
+.formals,
+.casuals {
+  h3 {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.all-abayas,
+.occasional,
+.formals,
+.casuals {
+  a {
+    text-decoration: none;
+  }
+}
+
+.formals {
+  background: url("../assets/formals.jpg");
+  height: 500px;
+  background-size: cover;
+}
+
+.casuals {
+  background: url("../assets/casuals.jpg");
+  height: 500px;
+  background-size: cover;
+}
+
+.occasional {
+  background: url("../assets/occasional.jpg");
+  height: 500px;
+  background-size: cover;
+}
+
+.parallex-area {
+  background: url("../assets/home-page-parallex.jpg");
+  height: 350px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.website-features {
+  background: rgba(0, 0, 0, 0.05);
+}

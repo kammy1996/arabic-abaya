@@ -11,7 +11,9 @@
     "bootstrap": "4.4.1",
     "core-js": "^3.6.4",
     "material-design-icons-iconfont": "^5.0.1",
+    "swiper": "^5.3.8",
     "vue": "^2.6.11",
+    "vue-awesome-swiper": "^4.1.1",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {

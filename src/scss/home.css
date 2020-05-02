@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,700&display=swap");
 body {
   background: black;
   font-family: "Raleway";
@@ -30,5 +29,59 @@ body {
 
 .navbar .main-logo {
   margin-top: -20px;
+}
+
+.abaya-cat {
+  text-align: center;
+}
+
+.all-abayas {
+  background: url("../assets/all-abayas.jpg");
+  height: 500px;
+  background-size: cover;
+}
+
+.all-abayas h3,
+.occasional h3,
+.formals h3,
+.casuals h3 {
+  color: white;
+  text-decoration: none;
+}
+
+.all-abayas a,
+.occasional a,
+.formals a,
+.casuals a {
+  text-decoration: none;
+}
+
+.formals {
+  background: url("../assets/formals.jpg");
+  height: 500px;
+  background-size: cover;
+}
+
+.casuals {
+  background: url("../assets/casuals.jpg");
+  height: 500px;
+  background-size: cover;
+}
+
+.occasional {
+  background: url("../assets/occasional.jpg");
+  height: 500px;
+  background-size: cover;
+}
+
+.parallex-area {
+  background: url("../assets/home-page-parallex.jpg");
+  height: 350px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.website-features {
+  background: rgba(0, 0, 0, 0.05);
 }
 /*# sourceMappingURL=home.css.map */
