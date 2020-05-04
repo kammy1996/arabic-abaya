@@ -14,6 +14,7 @@
     "swiper": "^5.3.8",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
+    "vue-owl-carousel": "^2.0.3",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {
