@@ -118,53 +118,53 @@
           </div>
           <div class="space-50"></div>
 
-          <carousel :items="4">
+          <carousel :items="3" :margin="10">
             <div class="main-product">
-              <img class="product-img" src="../assets/burqa.png" alt />
+              <img class="product-img" src="../assets/formals.jpg" alt />
               <div class="space-20"></div>
-              <h4>Cream Pearl Abaya</h4>
-              <h4 class="product-price">&#8377; 3200/-</h4>
+              <h5>Cream Pearl Abaya</h5>
+              <h5 class="product-price">&#8377; 3200/-</h5>
               <div class="space-10"></div>
 
               <img class="color-img" src="../assets/colors-avail.png" />
             </div>
 
             <div class="main-product">
-              <img class="product-img" src="../assets/burqa.png" alt />
+              <img class="product-img" src="../assets/formals.jpg" alt />
               <div class="space-20"></div>
-              <h4>Cream Pearl Abaya</h4>
+              <h5>Cream Pearl Abaya</h5>
 
-              <h4 class="product-price">&#8377; 3200/-</h4>
+              <h5 class="product-price">&#8377; 3200/-</h5>
 
               <img class="color-img" src="../assets/colors-avail.png" />
             </div>
 
             <div class="main-product">
-              <img class="product-img" src="../assets/burqa.png" alt />
+              <img class="product-img" src="../assets/formals.jpg" alt />
               <div class="space-20"></div>
-              <h4>Cream Pearl Abaya</h4>
+              <h5>Cream Pearl Abaya</h5>
 
-              <h4 class="product-price">&#8377; 3200/-</h4>
+              <h5 class="product-price">&#8377; 3200/-</h5>
 
               <img class="color-img" src="../assets/colors-avail.png" />
             </div>
 
             <div class="main-product">
-              <img class="product-img" src="../assets/burqa.png" alt />
+              <img class="product-img" src="../assets/formals.jpg" alt />
               <div class="space-20"></div>
-              <h4>Cream Pearl Abaya</h4>
+              <h5>Cream Pearl Abaya</h5>
 
-              <h4 class="product-price">&#8377; 3200/-</h4>
+              <h5 class="product-price">&#8377; 3200/-</h5>
 
               <img class="color-img" src="../assets/colors-avail.png" />
             </div>
 
             <div class="main-product">
-              <img class="product-img" src="../assets/burqa.png" alt />
+              <img class="product-img" src="../assets/formals.jpg" alt />
               <div class="space-20"></div>
-              <h4>Cream Pearl Abaya</h4>
+              <h5>Cream Pearl Abaya</h5>
 
-              <h4 class="product-price">&#8377; 3200/-</h4>
+              <h5 class="product-price">&#8377; 3200/-</h5>
 
               <img class="color-img" src="../assets/colors-avail.png" />
             </div>
@@ -178,25 +178,25 @@
           <div class="space-30"></div>
           <v-row>
             <v-col lg="3" md="3" sm="2" xs="1">
-              <img src="../assets/shipping.png" width="30%" alt />
+              <img src="../assets/shipping.png" width="25%" alt />
               <div class="space-30"></div>
               <h4>FREE SHIPPING</h4>
               <p>We Provide free shipping all over India</p>
             </v-col>
             <v-col lg="3" md="3" sm="2" xs="1">
-              <img src="../assets/cash-on-delivery.png" width="25%" alt />
+              <img src="../assets/cash-on-delivery.png" width="20%" alt />
               <div class="space-30"></div>
               <h4>CASH ON DELIVERY</h4>
               <p>Cash on delivery available on our portal</p>
             </v-col>
             <v-col lg="3" md="3" sm="2" xs="1">
-              <img src="../assets/security.png" width="25%" alt />
+              <img src="../assets/security.png" width="20%" alt />
               <div class="space-30"></div>
               <h4>FULLY SECURED</h4>
               <p>Highly Secured Online payment and policies</p>
             </v-col>
             <v-col lg="3" md="3" sm="2" xs="1">
-              <img src="../assets/open-allweek.png" width="25%" alt />
+              <img src="../assets/open-allweek.png" width="20%" alt />
               <div class="space-30"></div>
               <h4>OPENING ALL WEEk</h4>
               <p>WE are open all week from 9:00 am to 10:00 pm</p>
@@ -205,7 +205,6 @@
           <div class="space-30"></div>
         </v-container>
       </div>
-      <div class="space-50"></div>
     </div>
   </v-content>
 </template>

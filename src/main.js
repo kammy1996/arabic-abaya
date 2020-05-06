@@ -17,9 +17,10 @@ import "./scss/animate.css";
 //Hover.css
 import "./scss/hover.css";
 
-//fonts
+//custom CSS
 import "./scss/home.css";
 import "./scss/common.css";
+import "./scss/all-abayas.css";
 
 Vue.config.productionTip = false;
 

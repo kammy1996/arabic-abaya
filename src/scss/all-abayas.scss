@@ -1,0 +1,48 @@
+.filters h4 {
+  text-transform: uppercase;
+}
+
+body {
+  font-family: "Raleway";
+}
+
+.sort-filter {
+  margin-top: -7px;
+}
+
+.v-application a {
+  color: black !important;
+}
+
+.product-template {
+  .product-title-tooltip {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 400px;
+    overflow: hidden;
+  }
+  .product-price {
+    padding-left: 16px;
+    margin-top: -10px;
+  }
+
+  .product-title {
+    font-family: "Raleway" !important;
+  }
+
+  .color-selector {
+    padding-left: 16px;
+  }
+}
+
+/* Custom Image Zoom Effect */
+.img-hover-zoom {
+  overflow: hidden;
+}
+.img-hover-zoom img {
+  transition: transform 0.3s ease;
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.5);
+}
