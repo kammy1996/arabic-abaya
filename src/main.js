@@ -2,6 +2,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import VueAwesomeSwiper from "vue-awesome-swiper";
+import VueRouter from "vue-router";
+
+import router from "./router";
 
 // Font libraries
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -21,8 +24,10 @@ import "./scss/common.css";
 Vue.config.productionTip = false;
 
 Vue.use(VueAwesomeSwiper);
+Vue.use(VueRouter);
 
 new Vue({
   vuetify,
+  router,
   render: (h) => h(App),
 }).$mount("#app");

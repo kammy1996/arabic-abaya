@@ -4,33 +4,6 @@ body {
   color: green;
 }
 
-.topbar {
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  height: 40px;
-}
-
-.topbar p {
-  margin-top: -15px;
-}
-
-.navbar .navbar-nav .nav-item {
-  width: 110px;
-}
-
-.navbar ul li a {
-  color: rgba(0, 0, 0, 0.9);
-}
-
-.navbar #user-icon {
-  width: 40px;
-  margin-top: 5px;
-}
-
-.navbar .main-logo {
-  margin-top: -20px;
-}
-
 .abaya-cat {
   text-align: center;
 }
@@ -106,29 +79,5 @@ body {
 .website-features img {
   display: block;
   margin: auto;
-}
-
-footer p {
-  font-size: 18px;
-}
-
-footer h3 {
-  font-weight: 700;
-  text-align: center;
-}
-
-footer ul li {
-  padding: 10px;
-  font-size: 18px;
-  text-align: center;
-}
-
-footer ul {
-  list-style-type: none;
-}
-
-footer ul a {
-  color: black;
-  text-decoration: none;
 }
 /*# sourceMappingURL=home.css.map */

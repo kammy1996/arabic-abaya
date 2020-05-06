@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,700&display=swap");
 
+.product-price {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .space-50 {
   height: 50px;
 }
@@ -13,4 +17,55 @@
 
 .space-10 {
   height: 10px;
+}
+
+.topbar {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  height: 40px;
+}
+
+.topbar p {
+  margin-top: -15px;
+}
+
+.navbar .navbar-nav .nav-item {
+  width: 110px;
+}
+
+.navbar ul li a {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.navbar #user-icon {
+  width: 40px;
+  margin-top: 5px;
+}
+
+.navbar .main-logo {
+  margin-top: -20px;
+}
+
+footer p {
+  font-size: 18px;
+}
+
+footer h3 {
+  font-weight: 700;
+  text-align: center;
+}
+
+footer ul li {
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+footer ul {
+  list-style-type: none;
+}
+
+footer ul li a {
+  color: black !important ;
+  text-decoration: none !important;
 }
