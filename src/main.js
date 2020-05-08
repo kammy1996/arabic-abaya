@@ -21,6 +21,7 @@ import "./scss/hover.css";
 import "./scss/home.css";
 import "./scss/common.css";
 import "./scss/all-abayas.css";
+import "./scss/details.css";
 
 Vue.config.productionTip = false;
 

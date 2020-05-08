@@ -12,18 +12,24 @@ body {
 
 .all-abayas {
   background: url("../assets/all-abayas.jpg");
-  height: 500px;
+  height: 300px;
   background-size: cover;
+  line-height: 300px;
 }
 
-.all-abayas,
-.occasional,
-.formals,
-.casuals {
-  h3 {
-    color: white;
-    text-decoration: none;
-  }
+.cat-title {
+  color: white;
+  font-size: 22px;
+}
+
+.cat-title span {
+  background: $primaryColor;
+  padding: 7px 20px;
+}
+
+.cat-title span:hover {
+  background: black;
+  transition: 0.5s;
 }
 
 .all-abayas,
@@ -39,18 +45,21 @@ body {
   background: url("../assets/formals.jpg");
   height: 500px;
   background-size: cover;
+  line-height: 500px;
 }
 
 .casuals {
   background: url("../assets/casuals.jpg");
   height: 500px;
   background-size: cover;
+  line-height: 500px;
 }
 
 .occasional {
   background: url("../assets/occasional.jpg");
   height: 500px;
   background-size: cover;
+  line-height: 500px;
 }
 
 .parallex-area {
