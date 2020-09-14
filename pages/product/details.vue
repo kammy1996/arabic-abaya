@@ -3,24 +3,53 @@
     <div class="space-30"></div>
     <v-container>
       <v-row>
-        <v-col lg="6">
-          <img src="../../assets/images/formals.jpg" width="80%" />
+        <v-col lg="5">
+          <swiper :options="swiperOption">
+            <swiper-slide
+              v-for="(image, index) in currentProductImages"
+              :key="index"
+              ><v-img
+                :src="fetchImagesByProductId(currentProduct, image)"
+              ></v-img
+            ></swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+            <div
+              class="swiper-button-next swiper-button-white"
+              slot="button-next"
+            ></div>
+            <div
+              class="swiper-button-prev swiper-button-white"
+              slot="button-prev"
+            ></div>
+          </swiper>
         </v-col>
+        <v-col cols="1"></v-col>
         <v-col lg="6">
-          <h3 class="product-title">Cream abayas full title</h3>
+          <h3 class="product-title">{{ currentProduct.name }}</h3>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled
+            {{ currentProduct.short_description }}
           </p>
-          <h3 class="product-price">Rs.4500/-</h3>
+          <v-chip class="ma-2" label>
+            <v-icon left>mdi-label</v-icon>
+            <b>{{ currentCategory }}</b>
+          </v-chip>
+
+          <div class="space-20"></div>
+          <h3 class="product-price">
+            &#8377; {{ currentProduct.final_price }}
+          </h3>
+          <span class="old-price "> &#8377; {{ currentProduct.price }} </span>
+          <v-chip class="ma-2" color="red" text-color="white">
+            &#8377; {{ currentProduct.discount }} Off
+          </v-chip>
+
           <hr />
           <v-row>
             <v-col lg="6">
               Available Colors:
               <v-row>
                 <v-col lg="4">
+                  <div></div>
                   <v-img
                     src="../../assets/images/formals.jpg"
                     width="80%"
@@ -67,6 +96,7 @@
       <div class="space-50"></div>
       <h4>Specifications</h4>
       <v-divider></v-divider>
+      <span v-html="currentProduct.specification"></span>
       <div class="space-50"></div>
 
       <div class="text-center">
@@ -79,7 +109,13 @@
 </template>
 
 <script>
-export default {
-  name: "Details",
-};
+import details from "../../modules/product/details";
+
+export default details;
 </script>
+
+<style scoped>
+.old-price {
+  text-decoration: line-through;
+}
+</style>

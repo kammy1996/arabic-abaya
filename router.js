@@ -21,9 +21,10 @@ export default new Router({
       component: explore,
     },
     {
-      path: "/details",
+      path: "/product/:id",
       name: "Details",
       component: details,
     },
+   
   ],
 });

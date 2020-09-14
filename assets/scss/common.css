@@ -1,6 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,700&display=swap");
 .product-price {
   font-family: Arial, Helvetica, sans-serif;
+  text-indent: 20px;
+}
+
+body {
+  font-family: "Raleway";
+}
+
+.v-application a {
+  color: black !important;
+  text-decoration: none;
 }
 
 .space-50 {

@@ -53,28 +53,29 @@
 
           <div class="products">
             <v-row>
-              <v-col lg="4">
+              <v-col lg="4" v-for="(product, index) in products" :key="index">
                 <div class="product-template">
                   <v-card class="mx-auto">
-                    <div class="img-hover-zoom">
-                      <img
-                        src="../../assets/images/formals.jpg"
-                        height="400px"
-                      />
-                    </div>
+                    <a :href="`product/${product.id}`">
+                      <v-img :src="getImagePath(product)"></v-img>
+                    </a>
 
                     <v-tooltip bottom color="black">
                       <template v-slot:activator="{ on }">
                         <v-card-title class="Product-title" v-on="on">
-                          <a href="details" class="product-title-tooltip"
-                            >Cream abayas full title with big title</a
+                          <a
+                            :href="`product/${product.id}`"
+                            class="product-title-tooltip"
+                            >{{ product.name }}</a
                           >
                         </v-card-title>
                       </template>
-                      <span>Cream abayas full title with big title</span>
+                      <span>{{ product.name }}</span>
                     </v-tooltip>
 
-                    <h5 class="product-price">&#8377; 3200/-</h5>
+                    <h5 class="product-price">
+                      &#8377; {{ product.final_price }}
+                    </h5>
 
                     <div class="space-20"></div>
                   </v-card>
@@ -93,12 +94,15 @@
 </template>
 
 <script>
-export default {
-  name: "Explore",
-  data: () => ({
-    items: ["High to Low", "Low To High"],
-  }),
-};
+import explore from "../../modules/product/explore";
+
+export default explore;
 </script>
 
-<style></style>
+<style scoped>
+.sort-filter {
+  margin-top: -7px;
+}
+
+/* Custom Image Zoom Effect */
+</style>
