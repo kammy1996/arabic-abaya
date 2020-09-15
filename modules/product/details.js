@@ -1,28 +1,15 @@
 import axios from "axios";
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import "swiper/swiper-bundle.css";
 
 export default {
   name: "Details",
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
+
   data() {
     return {
-      swiperOption: {
-        spaceBetween: 10,
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        pagination: {
-          el: ".swiper-pagination",
-        },
-      },
       currentProduct: [],
       currentCategory: null,
       currentProductImages: [],
+      currentProductStock: [],
+      imagesByColor: null,
     };
   },
   created() {
@@ -50,15 +37,36 @@ export default {
         .get(`/product/fetch/image/${this.$route.params.id}`)
         .catch((err) => console.log(err));
       this.currentProductImages = images.data;
+
+      const stock = await axios
+        .get(`/product/fetch/stock/${this.$route.params.id}`)
+        .catch((err) => console.log(err));
+      this.currentProductStock = stock.data;
+
+      this.assignData();
+    },
+    assignData() {
+      this.currentProductStock.forEach((item) => {
+        item.files = [];
+      });
+
+      this.currentProductImages.forEach((file) => {
+        this.currentProductStock.forEach((stock) => {
+          if (file.stock_id == stock.id) {
+            stock.files.push(file.file_name);
+          }
+        });
+      });
+
+      if (this.imagesByColor === null) {
+        this.imagesByColor = this.currentProductStock[0].files;
+      }
+    },
+    showImagesByColor(index) {
+      this.imagesByColor = this.currentProductStock[index].files;
     },
     fetchImagesByProductId(product, image) {
-      return (
-        process.env.VUE_APP_HOST_URL +
-        "/" +
-        product.name +
-        "/" +
-        image.file_name
-      );
+      return process.env.VUE_APP_HOST_URL + "/" + product.name + "/" + image;
     },
   },
 };

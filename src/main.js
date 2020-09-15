@@ -11,6 +11,8 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
 import "bootstrap/dist/css/bootstrap.css";
 
+// If you use Swiper 6.0.0 or higher
+
 //custom CSS
 import "../assets/scss/home.css";
 import "../assets/scss/common.css";

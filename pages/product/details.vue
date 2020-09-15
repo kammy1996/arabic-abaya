@@ -4,24 +4,16 @@
     <v-container>
       <v-row>
         <v-col lg="5">
-          <swiper :options="swiperOption">
-            <swiper-slide
-              v-for="(image, index) in currentProductImages"
+          <v-carousel hide-delimiters>
+            <v-carousel-item
+              v-for="(image, index) in imagesByColor"
               :key="index"
-              ><v-img
+            >
+              <v-img
                 :src="fetchImagesByProductId(currentProduct, image)"
-              ></v-img
-            ></swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
-            <div
-              class="swiper-button-next swiper-button-white"
-              slot="button-next"
-            ></div>
-            <div
-              class="swiper-button-prev swiper-button-white"
-              slot="button-prev"
-            ></div>
-          </swiper>
+              ></v-img>
+            </v-carousel-item>
+          </v-carousel>
         </v-col>
         <v-col cols="1"></v-col>
         <v-col lg="6">
@@ -48,12 +40,26 @@
             <v-col lg="6">
               Available Colors:
               <v-row>
-                <v-col lg="4">
-                  <div></div>
-                  <v-img
-                    src="../../assets/images/formals.jpg"
-                    width="80%"
-                  ></v-img>
+                <v-col
+                  lg="4"
+                  v-for="(color, index) in currentProductStock"
+                  :key="index"
+                >
+                  <v-tooltip bottom :color="color.color">
+                    <template v-slot:activator="{ on }">
+                      <v-img
+                        style="display:inline-block"
+                        v-on="on"
+                        @click="showImagesByColor(index)"
+                        width="100%"
+                        :src="
+                          fetchImagesByProductId(currentProduct, color.files[0])
+                        "
+                      >
+                      </v-img>
+                    </template>
+                    <span>{{ color.color }}</span>
+                  </v-tooltip>
                 </v-col>
               </v-row>
             </v-col>
