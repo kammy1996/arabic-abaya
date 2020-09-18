@@ -1,15 +1,25 @@
 import axios from "axios";
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import "swiper/swiper-bundle.css";
 
 export default {
   name: "Details",
-
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   data() {
     return {
+      swiperOptions: {
+        slidesPerView: 4,
+        spaceBetween: 30,
+      },
       currentProduct: [],
       currentCategory: null,
       currentProductImages: [],
       currentProductStock: [],
       imagesByColor: null,
+      relatedProducts: [],
     };
   },
   created() {
@@ -21,6 +31,11 @@ export default {
         .get(`/product/${this.$route.params.id}`)
         .catch((err) => console.log(err));
       this.currentProduct = product.data[0];
+
+      const similar = await axios
+        .get(`/product/related/${this.currentProduct.category_id}`)
+        .catch((err) => console.log(err));
+      this.relatedProducts = similar.data;
 
       const category = await axios
         .get(`/product/category/show`)
@@ -67,6 +82,12 @@ export default {
     },
     fetchImagesByProductId(product, image) {
       return process.env.VUE_APP_HOST_URL + "/" + product.name + "/" + image;
+    },
+    slideNext() {
+      this.$refs.mySwiper.$swiper.slideNext();
+    },
+    slidePrev() {
+      this.$refs.mySwiper.$swiper.slidePrev();
     },
   },
 };

@@ -6,10 +6,13 @@
           <div class="filters">
             <h4>Categories</h4>
             <hr />
-            <v-checkbox hide-details label="All Abayas"></v-checkbox>
-            <v-checkbox hide-details label="Occasional"></v-checkbox>
-            <v-checkbox hide-details label="Formals"></v-checkbox>
-            <v-checkbox hide-details label="Casuals"></v-checkbox>
+            <v-checkbox
+              v-for="(cat, index) in categories"
+              :key="index"
+              hide-details
+              :label="cat.name"
+              @change="fetchProductByCategory(index)"
+            ></v-checkbox>
 
             <div class="space-50"></div>
 
@@ -21,13 +24,6 @@
             <v-checkbox hide-details label="Above Rs.5000"></v-checkbox>
 
             <div class="space-50"></div>
-
-            <h4>Colors</h4>
-            <hr />
-            <v-checkbox hide-details label="Black"></v-checkbox>
-            <v-checkbox hide-details label="Brown"></v-checkbox>
-            <v-checkbox hide-details label="Purple"></v-checkbox>
-            <v-checkbox hide-details label="red"></v-checkbox>
           </div>
         </v-col>
 
@@ -53,10 +49,14 @@
 
           <div class="products">
             <v-row>
-              <v-col lg="4" v-for="(product, index) in products" :key="index">
+              <v-col
+                lg="4"
+                v-for="(product, index) in visibleProducts"
+                :key="index"
+              >
                 <div class="product-template">
                   <v-card class="mx-auto">
-                    <a :href="`product/${product.id}`">
+                    <a :href="`/product/${product.id}`">
                       <v-img :src="getImagePath(product)"></v-img>
                     </a>
 
@@ -64,7 +64,7 @@
                       <template v-slot:activator="{ on }">
                         <v-card-title class="Product-title" v-on="on">
                           <a
-                            :href="`product/${product.id}`"
+                            :href="`/product/${product.id}`"
                             class="product-title-tooltip"
                             >{{ product.name }}</a
                           >
@@ -82,9 +82,18 @@
                 </div>
               </v-col>
             </v-row>
+            <v-overlay :value="overlay">
+              <v-progress-circular
+                indeterminate
+                size="64"
+              ></v-progress-circular>
+            </v-overlay>
             <div class="space-30"></div>
             <div style="float:right;">
-              <v-pagination :length="3"></v-pagination>
+              <v-pagination
+                v-model="currentPage"
+                :length="Math.ceil(totalProducts.length / perPage)"
+              ></v-pagination>
             </div>
           </div>
         </v-col>

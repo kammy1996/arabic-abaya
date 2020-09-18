@@ -108,6 +108,56 @@
       <div class="text-center">
         <h4>Related Products</h4>
         <img src="../../assets/images/title-underline.png" />
+        <div class="space-30"></div>
+        <template>
+          <swiper ref="mySwiper" :options="swiperOptions">
+            <swiper-slide
+              v-for="(product, index) in relatedProducts"
+              :key="index"
+              ><v-card class="mx-auto">
+                <a :href="`/product/${product.product_id}`">
+                  <v-img
+                    :src="fetchImagesByProductId(product, product.file_name)"
+                  ></v-img>
+                </a>
+
+                <v-tooltip bottom color="black">
+                  <template v-slot:activator="{ on }">
+                    <v-card-title class="Product-title" v-on="on">
+                      <a
+                        :href="`/product/${product.product_id}`"
+                        class="product-title-tooltip"
+                        >{{ product.name }}</a
+                      >
+                    </v-card-title>
+                  </template>
+                  <span>{{ product.name }}</span>
+                </v-tooltip>
+
+                <h5 class="product-price">&#8377; {{ product.final_price }}</h5>
+
+                <div class="space-20"></div> </v-card
+            ></swiper-slide>
+            <div
+              class="swiper-button-prev swiper-button-black"
+              slot="button-prev"
+              @click="slidePrev"
+            ></div>
+            <div
+              class="swiper-button-next swiper-button-black"
+              slot="button-next"
+              @click="slideNext"
+            ></div>
+          </swiper>
+        </template>
+
+        <v-row>
+          <v-col cols="3">
+            <div class="product-template"></div>
+          </v-col>
+        </v-row>
+
+        <div class="swiper-pagination" slot="pagination"></div>
       </div>
       <div class="space-30"></div>
     </v-container>
