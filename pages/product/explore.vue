@@ -11,6 +11,7 @@
               :key="index"
               hide-details
               :label="cat.name"
+              v-model="cat.selected"
               @change="fetchProductByCategory(index)"
             ></v-checkbox>
 
@@ -18,10 +19,16 @@
 
             <h4>Price</h4>
             <hr />
-            <v-checkbox hide-details label="Below Rs.1000"></v-checkbox>
-            <v-checkbox hide-details label="Rs.1000 - 2000"></v-checkbox>
-            <v-checkbox hide-details label="Rs.2000 - 4000"></v-checkbox>
-            <v-checkbox hide-details label="Above Rs.5000"></v-checkbox>
+            <div>
+              <v-checkbox
+                v-for="(price, index) in priceRanges"
+                :key="index"
+                hide-details
+                :label="price.name"
+                v-model="price.selected"
+                @change="fetchProductByPrice(index)"
+              ></v-checkbox>
+            </div>
 
             <div class="space-50"></div>
           </div>
@@ -31,18 +38,24 @@
           <v-row>
             <v-col lg="8">
               <v-combobox
-                prepend-icon="search"
-                label="Search Abayas..."
+                v-model="searchProducts"
+                :items="productsBySearch"
+                item-text="name"
+                :search-input.sync="searchSelected"
+                label="Search Abayas"
+                @change="fetchProductsBySearch"
               ></v-combobox>
             </v-col>
 
             <v-col lg="4">
               <v-select
                 class="sort-filter"
-                :items="items"
+                :items="sortByPrice"
+                v-model="sortIndex"
                 attach
                 chips
                 label="Sort By Price"
+                @change="fetchProductByPriceSort"
               ></v-select>
             </v-col>
           </v-row>
