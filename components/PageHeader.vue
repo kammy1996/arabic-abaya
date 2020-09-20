@@ -51,11 +51,13 @@
                 </a>
               </li>
               <li id="bag-icon">
-                <a href>
-                  <img
-                    src="https://img.icons8.com/carbon-copy/35/000000/shopping-bag.png"
-                  />
-                </a>
+                <v-badge color="pink" content="1">
+                  <a href="/cart">
+                    <img
+                      src="https://img.icons8.com/carbon-copy/35/000000/shopping-bag.png"
+                    />
+                  </a>
+                </v-badge>
               </li>
             </ul>
           </v-col>

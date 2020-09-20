@@ -20,6 +20,8 @@ export default {
       currentProductStock: [],
       imagesByColor: null,
       relatedProducts: [],
+      isProductAddedToCart: false,
+      addedToCartMessage: "",
     };
   },
   created() {
@@ -88,6 +90,14 @@ export default {
     },
     slidePrev() {
       this.$refs.mySwiper.$swiper.slidePrev();
+    },
+    async addToCart() {
+      const res = await axios
+        .post(`/product/client/cart/${this.$route.params.id}`)
+        .catch((err) => console.log(err));
+      this.addedToCartMessage = res.data.message;
+
+      this.isProductAddedToCart = true;
     },
   },
 };

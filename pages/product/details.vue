@@ -90,7 +90,12 @@
             </v-expansion-panel>
           </v-expansion-panels>
           <div class="space-30"></div>
-          <v-btn large color="rgba(0,0,0,0.8)" class="ma-2 white--text">
+          <v-btn
+            large
+            color="rgba(0,0,0,0.8)"
+            class="ma-2 white--text"
+            @click="addToCart"
+          >
             <v-icon left dark>mdi-cart &nbsp;</v-icon>Add To Cart
           </v-btn>
           <v-btn large color="#cd9a2a" class="ma-2 white--text">
@@ -150,6 +155,9 @@
             ></div>
           </swiper>
         </template>
+        <v-snackbar color="success" v-model="isProductAddedToCart">
+          {{ addedToCartMessage }}
+        </v-snackbar>
 
         <v-row>
           <v-col cols="3">

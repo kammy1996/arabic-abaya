@@ -4,6 +4,7 @@ import Router from "vue-router";
 import home from "./pages/product/home";
 import explore from "./pages/product/explore";
 import details from "./pages/product/details";
+import cart from "./pages/product/cart"
 
 Vue.use(Router);
 
@@ -25,6 +26,11 @@ export default new Router({
       name: "Details",
       component: details,
     },
+    {
+      path:"/cart",
+      name:"cart",
+      component:cart
+    }
    
   ],
 });
