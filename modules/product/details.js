@@ -98,6 +98,7 @@ export default {
       this.addedToCartMessage = res.data.message;
 
       this.isProductAddedToCart = true;
+      this.$store.dispatch("FETCH_CART_COUNT");
     },
   },
 };

@@ -32,9 +32,13 @@ export default {
         });
       });
 
-      this.cartTotal = this.currentProduct
-        .map((item) => item.final_price)
-        .reduce((prev, next) => prev + next);
+      if (this.currentProduct.length > 0) {
+        this.cartTotal = this.currentProduct
+          .map((item) => item.final_price)
+          .reduce((prev, next) => prev + next);
+      }
+
+      this.$store.dispatch("FETCH_CART_COUNT");
     },
     fetchCartProductImages(product) {
       return (
@@ -44,6 +48,17 @@ export default {
         "/" +
         product.file_name
       );
+    },
+    async removeFromCart(index) {
+      let productId = this.currentProduct[index].id;
+      await axios
+        .delete(`/product/client/cart/delete/${productId}`)
+        .catch((err) => console.log(err));
+    },
+  },
+  watch: {
+    currentProduct() {
+      this.getData();
     },
   },
 };

@@ -5,7 +5,7 @@
       <img src="../../assets/images/title-underline.png" />
       <div class="space-30"></div>
     </div>
-    <v-row>
+    <v-row v-if="currentProduct.length > 0">
       <v-col col="8">
         <v-card>
           <v-card-title>Products(0)</v-card-title>
@@ -20,7 +20,13 @@
                 <img :src="fetchCartProductImages(product)" width="70%" />
                 <div class="space-30"></div>
 
-                <v-btn class="ma-2" tile outlined color="red">
+                <v-btn
+                  class="ma-2"
+                  tile
+                  outlined
+                  color="red"
+                  @click="removeFromCart(index)"
+                >
                   <v-icon left>mdi-close-circle</v-icon> Remove From Cart
                 </v-btn>
               </v-col>
@@ -35,7 +41,10 @@
                 <v-select :items="quantity" label="Select Quantity"></v-select>
                 <v-card-title>&#8377; {{ product.final_price }}</v-card-title>
               </v-col>
-              <v-divider class="ma-5"></v-divider>
+              <v-divider
+                class="ma-5"
+                v-if="currentProduct.length > 1"
+              ></v-divider>
             </v-row>
           </div>
         </v-card>
@@ -66,6 +75,12 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-img v-else src="../../assets/images/empty-cart.jpg"></v-img>
+    <div v-if="currentProduct.length > 0" class="my-2 text-right">
+      <v-btn color="warning" large dark
+        >CONTINUE <v-icon dark>mdi-chevron-right</v-icon></v-btn
+      >
+    </div>
   </v-container>
 </template>
 

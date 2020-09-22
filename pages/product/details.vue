@@ -120,7 +120,7 @@
               v-for="(product, index) in relatedProducts"
               :key="index"
               ><v-card class="mx-auto">
-                <a :href="`/product/${product.product_id}`">
+                <a :href="`/product/${product.id}`">
                   <v-img
                     :src="fetchImagesByProductId(product, product.file_name)"
                   ></v-img>

@@ -44,19 +44,23 @@
                 <a class="nav-link" href="/explore">All Abayas</a>
               </li>
               <li id="user-icon">
-                <a href>
+                <a href="/user/registration">
                   <img
                     src="https://img.icons8.com/ios/25/000000/person-female.png"
                   />
                 </a>
               </li>
               <li id="bag-icon">
-                <v-badge color="pink" content="1">
-                  <a href="/cart">
-                    <img
-                      src="https://img.icons8.com/carbon-copy/35/000000/shopping-bag.png"
-                    />
-                  </a>
+                <a href="/cart">
+                  <img
+                    src="https://img.icons8.com/carbon-copy/35/000000/shopping-bag.png"
+                  />
+                </a>
+                <v-badge
+                  color="pink"
+                  v-if="this.$store.state.cartCount != 0"
+                  :content="this.$store.getters.GET_CART_COUNT"
+                >
                 </v-badge>
               </li>
             </ul>
@@ -69,3 +73,11 @@
     <hr style="margin-top:-7px;" />
   </div>
 </template>
+<script>
+export default {
+  name: "pageHeader",
+  created() {
+    this.$store.dispatch("FETCH_CART_COUNT");
+  },
+};
+</script>
