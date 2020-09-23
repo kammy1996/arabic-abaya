@@ -37,9 +37,7 @@
                 <v-btn color="warning" @click="signIn" large dark>
                   Sign In</v-btn
                 >
-                <v-btn color="warning" @click="access" large dark>
-                  Access</v-btn
-                >
+              
               </div>
               <v-card-text>
                 Not a Member <a href="/user/registration">Sign Up</a>
@@ -70,6 +68,7 @@
     </div>
   </v-container>
 </template>
+
 <script>
 import login from "../../modules/user/login";
 

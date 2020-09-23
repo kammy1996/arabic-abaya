@@ -22,6 +22,7 @@ export default {
       relatedProducts: [],
       isProductAddedToCart: false,
       addedToCartMessage: "",
+
     };
   },
   created() {
@@ -92,13 +93,16 @@ export default {
       this.$refs.mySwiper.$swiper.slidePrev();
     },
     async addToCart() {
-      const res = await axios
-        .post(`/product/client/cart/${this.$route.params.id}`)
-        .catch((err) => console.log(err));
-      this.addedToCartMessage = res.data.message;
+      // const res = await axios
+      //   .post(`/product/client/cart/${this.$route.params.id}`)
+      //   .catch((err) => console.log(err));
+      // this.addedToCartMessage = res.data.message;
+      // this.this.isProductAddedToCart = true;
+      // this.$store.dispatch("FETCH_CART_COUNT");
 
-      this.isProductAddedToCart = true;
-      this.$store.dispatch("FETCH_CART_COUNT");
+      
+        this.$router.push("/user/login");
+    
     },
   },
 };

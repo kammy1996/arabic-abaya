@@ -1,4 +1,3 @@
-import axios from "axios";
 export default {
   name: "Login",
   data() {
@@ -11,6 +10,7 @@ export default {
       loginStatus: null,
       userLoginSnackBar: false,
       valid: false,
+      token: null,
       genRules: [
         (v) => !!v || "Required",
         (v) =>
@@ -27,22 +27,16 @@ export default {
     async signIn() {
       this.$refs.signIn.validate();
       if (this.valid === true) {
-        let signInData = {
+        await this.$store.dispatch("USER_LOGIN", {
           email: this.user.email,
           password: this.user.password,
-        };
-        const res = await axios
-          .post(`/user/login`, signInData)
-          .catch((err) => console.log(err));
-        this.loginStatus = res.data;
+        });
+      
+        if ((await this.$store.getters.GET_USER_TOKEN) != null) {
+          this.$router.push(`/user/profile`);
+        }
         this.userLoginSnackBar = true;
       }
-    },
-    async access() {
-      await axios
-        .get(`/user/profile`)
-        .catch((err) => console.log(err))
-        .then((res) => console.log(res));
     },
   },
 };
