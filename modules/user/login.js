@@ -1,3 +1,5 @@
+import cookies from "js-cookie";
+
 export default {
   name: "Login",
   data() {
@@ -8,9 +10,9 @@ export default {
       },
       pass: false,
       loginStatus: null,
+      token: "",
       userLoginSnackBar: false,
       valid: false,
-      token: null,
       genRules: [
         (v) => !!v || "Required",
         (v) =>
@@ -31,11 +33,13 @@ export default {
           email: this.user.email,
           password: this.user.password,
         });
-      
-        if ((await this.$store.getters.GET_USER_TOKEN) != null) {
-          this.$router.push(`/user/profile`);
+
+        this.token = await this.$store.getters.GET_USER_TOKEN;
+
+        if (this.token.length > 10) {
+          cookies.set("jwt", this.token, { expires: 7 });
+          this.$router.push("/user/profile");
         }
-        this.userLoginSnackBar = true;
       }
     },
   },

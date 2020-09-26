@@ -1,20 +1,22 @@
 <template>
   <v-container>
     <h1>User Profile</h1>
-    <div v-for="(user, index) in users" :key="index">
-      <h3>{{ user.full_name }}</h3>
-      <h3>{{ user.email }}</h3>
-      <h3>{{ user.id }}</h3>
+    <div v-for="(man, index) in userInfo" :key="index">
+      <h3>{{ man.full_name }}</h3>
+      <h3>{{ man.email }}</h3>
+      <h3>{{ man.id }}</h3>
     </div>
   </v-container>
 </template>
 <script>
 import axios from "axios";
+import cookies from "js-cookie";
 export default {
   name: "userProfile",
   data() {
     return {
-      users: null,
+      token: null,
+      userInfo: null,
     };
   },
   created() {
@@ -22,13 +24,14 @@ export default {
   },
   methods: {
     async getData() {
-      const token = this.$store.getters.GET_USER_TOKEN;
+      this.token = cookies.get("jwt");
+
       const res = await axios
         .get(`/user/profile`, {
-          headers: { "Auth-token": token },
+          headers: { "Auth-token": this.token },
         })
         .catch((err) => console.log(err));
-      this.users = res.data;
+      this.userInfo = res.data;
     },
   },
 };

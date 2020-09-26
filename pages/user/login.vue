@@ -37,7 +37,6 @@
                 <v-btn color="warning" @click="signIn" large dark>
                   Sign In</v-btn
                 >
-              
               </div>
               <v-card-text>
                 Not a Member <a href="/user/registration">Sign Up</a>

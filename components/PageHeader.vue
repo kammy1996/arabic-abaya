@@ -56,12 +56,7 @@
                     src="https://img.icons8.com/carbon-copy/35/000000/shopping-bag.png"
                   />
                 </a>
-                <v-badge
-                  color="pink"
-                  v-if="this.$store.state.cartCount != 0"
-                  :content="this.$store.getters.GET_CART_COUNT"
-                >
-                </v-badge>
+                <v-badge color="pink" :content="cartCount"> </v-badge>
               </li>
             </ul>
           </v-col>
@@ -74,10 +69,20 @@
   </div>
 </template>
 <script>
+// import cookies from "js-cookie";
 export default {
   name: "pageHeader",
+  data() {
+    return {
+      cartCount: 0,
+    };
+  },
   created() {
-    this.$store.dispatch("FETCH_CART_COUNT");
+    // let existing_cart_cookie = cookies.get("product");
+    // let obj = existing_cart_cookie.split(";");
+    // obj.pop(); // Removing the last black obj
+    // console.log(obj);
+    // this.cartCount = obj.length;
   },
 };
 </script>

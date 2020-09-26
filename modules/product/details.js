@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/swiper-bundle.css";
+import cookies from "js-cookie";
 
 export default {
   name: "Details",
@@ -22,7 +23,6 @@ export default {
       relatedProducts: [],
       isProductAddedToCart: false,
       addedToCartMessage: "",
-
     };
   },
   created() {
@@ -93,16 +93,24 @@ export default {
       this.$refs.mySwiper.$swiper.slidePrev();
     },
     async addToCart() {
-      // const res = await axios
-      //   .post(`/product/client/cart/${this.$route.params.id}`)
-      //   .catch((err) => console.log(err));
-      // this.addedToCartMessage = res.data.message;
-      // this.this.isProductAddedToCart = true;
-      // this.$store.dispatch("FETCH_CART_COUNT");
+      delete this.currentProduct.specification;
+      let oldCookie = cookies.get("product");
 
-      
-        this.$router.push("/user/login");
-    
+      //Check if the product already exist in cookie
+
+      if (oldCookie === undefined) {
+        cookies.set("product", JSON.stringify(this.currentProduct) + ";");
+      } else if (
+        oldCookie.includes(this.$route.params.id) &&
+        oldCookie.includes(this.currentProduct.name)
+      ) {
+        return;
+      } else {
+        cookies.set(
+          "product",
+          oldCookie.concat(JSON.stringify(this.currentProduct) + ";")
+        );
+      }
     },
   },
 };

@@ -7,8 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     visibleProducts: [],
-    cartCount: null,
-    userToken:null,
+    userToken: null,
   },
   mutations: {
     SET_VISIBLE_PRODUCTS(state, payload) {
@@ -17,9 +16,12 @@ export const store = new Vuex.Store({
     SET_CART_COUNT(state, payload) {
       state.cartCount = payload;
     },
-    SET_USER_TOKEN(state,payload) { 
-      state.userToken = payload
-    }
+    SET_USER_TOKEN(state, payload) {
+      state.userToken = payload;
+    },
+    SET_COOKIE(state, payload) {
+      state.cookie = state.cookie.concat(payload);
+    },
   },
   actions: {
     async FETCH_VISIBLE_PRODUCTS({ commit }, payload) {
@@ -34,13 +36,12 @@ export const store = new Vuex.Store({
         .catch((err) => console.log(err));
       commit("SET_CART_COUNT", res.data[0]["COUNT(id)"]);
     },
-    async USER_LOGIN({commit},payload) { 
+    async USER_LOGIN({ commit }, payload) {
       const res = await axios
-      .post(`/user/login`, payload)
-      .catch((err) => console.log(err));
-      commit("SET_USER_TOKEN",res.data.token)
-
-    }
+        .post(`/user/login`, payload)
+        .catch((err) => console.log(err));
+      commit("SET_USER_TOKEN", res.data.token);
+    },
   },
   getters: {
     GET_VISIBLE_PRODUCTS(state) {
@@ -49,8 +50,8 @@ export const store = new Vuex.Store({
     GET_CART_COUNT(state) {
       return state.cartCount;
     },
-    GET_USER_TOKEN(state){ 
-      return state.userToken
-    }
+    GET_USER_TOKEN(state) {
+      return state.userToken;
+    },
   },
 });
