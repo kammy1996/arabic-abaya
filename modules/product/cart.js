@@ -39,15 +39,16 @@ export default {
       // this.$store.dispatch("FETCH_CART_COUNT");
 
       //If user is not Logged in
-      let old = cookies.get("product");
+      if (this.sortCookie() === undefined) return;
+      else this.currentProduct = this.sortCookie();
 
-      let obj = old.split(";");
-      obj.pop(); // Removing the last black obj
+      await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
 
-      obj.forEach((item) => {
-        let parsed = JSON.parse(item);
-        this.currentProduct.push(parsed);
-      });
+      if (this.currentProduct.length > 0) {
+        this.cartTotal = this.currentProduct
+          .map((item) => item.final_price)
+          .reduce((prev, next) => prev + next);
+      }
     },
     fetchCartProductImages(product) {
       return (
@@ -61,17 +62,53 @@ export default {
     async removeFromCart(index) {
       // If user is not Logged IN
       this.currentProduct.splice(index, 1);
+      let newArr = [];
+      await this.currentProduct.forEach((item) => {
+        newArr.push(JSON.stringify(item));
+      });
 
-      if (this.currentProduct.length > 0) {
-        cookies.set("product", JSON.stringify(this.currentProduct));
-      } else {
+      let joinArr = newArr.join(";");
+      cookies.set("product", joinArr + ";");
+
+      if (cookies.get("product") == ";") {
         cookies.remove("product");
       }
 
-      // let productId = this.currentProduct[index].id;
-      // await axios
-      //   .delete(`/product/client/cart/delete/${productId}`)
-      //   .catch((err) => console.log(err));
+      if (this.sortCookie() === undefined) {
+        await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN", 0);
+        return;
+      } else this.currentProduct = this.sortCookie();
+
+      await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
+    },
+    sortCookie() {
+      //If user is not logged in
+      let existing_cookies = cookies.get("product");
+
+      if (existing_cookies === undefined) return;
+      else {
+        let splitCookie = existing_cookies.split(";");
+
+        splitCookie.forEach((item) => {
+          if (item === "") {
+            splitCookie.pop();
+          }
+        });
+
+        let finalCookie = [];
+
+        splitCookie.forEach((item) => {
+          let parsed = JSON.parse(item);
+          finalCookie.push(parsed);
+        });
+
+        return finalCookie;
+      }
+    },
+  },
+  watch: {
+    currentProduct() {
+      this.getData();
     },
   },
 };

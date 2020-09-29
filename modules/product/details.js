@@ -94,12 +94,17 @@ export default {
     },
     async addToCart() {
       delete this.currentProduct.specification;
+      
+      this.currentProduct.stock = [];
+      this.currentProductStock.forEach(item => { 
+        this.currentProduct.stock.push(item.color)
+      })
+
       let oldCookie = cookies.get("product");
-
-      //Check if the product already exist in cookie
-
+     
       if (oldCookie === undefined) {
         cookies.set("product", JSON.stringify(this.currentProduct) + ";");
+
       } else if (
         oldCookie.includes(this.$route.params.id) &&
         oldCookie.includes(this.currentProduct.name)
@@ -111,6 +116,7 @@ export default {
           oldCookie.concat(JSON.stringify(this.currentProduct) + ";")
         );
       }
+      await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
     },
   },
 };
