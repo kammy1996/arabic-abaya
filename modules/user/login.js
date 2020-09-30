@@ -1,5 +1,3 @@
-import cookies from "js-cookie";
-
 export default {
   name: "Login",
   data() {
@@ -10,7 +8,7 @@ export default {
       },
       pass: false,
       loginStatus: null,
-      token: "",
+
       userLoginSnackBar: false,
       valid: false,
       genRules: [
@@ -29,17 +27,17 @@ export default {
     async signIn() {
       this.$refs.signIn.validate();
       if (this.valid === true) {
-        await this.$store.dispatch("USER_LOGIN", {
+        let userData = {
           email: this.user.email,
           password: this.user.password,
-        });
+        };
+        const res = await this.$axios
+          .post(`/user/login`, userData)
+          .catch((err) => console.log(err));
+        let token = res.data.token;
 
-        this.token = await this.$store.getters.GET_USER_TOKEN;
-
-        if (this.token.length > 10) {
-          cookies.set("jwt", this.token, { expires: 7 });
-          this.$router.push("/user/profile");
-        }
+        if (token === undefined) return;
+        else this.$cookies.set("jwt", token, { expires: 7 });
       }
     },
   },

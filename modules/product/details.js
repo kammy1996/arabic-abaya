@@ -1,7 +1,5 @@
-import axios from "axios";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/swiper-bundle.css";
-import cookies from "js-cookie";
 
 export default {
   name: "Details",
@@ -30,17 +28,17 @@ export default {
   },
   methods: {
     async getData() {
-      const product = await axios
+      const product = await this.$axios
         .get(`/product/${this.$route.params.id}`)
         .catch((err) => console.log(err));
       this.currentProduct = product.data[0];
 
-      const similar = await axios
+      const similar = await this.$axios
         .get(`/product/related/${this.currentProduct.category_id}`)
         .catch((err) => console.log(err));
       this.relatedProducts = similar.data;
 
-      const category = await axios
+      const category = await this.$axios
         .get(`/product/category/show`)
         .catch((err) => console.log(err));
       let categories = category.data;
@@ -51,12 +49,12 @@ export default {
         }
       });
 
-      const images = await axios
+      const images = await this.$axios
         .get(`/product/fetch/image/${this.$route.params.id}`)
         .catch((err) => console.log(err));
       this.currentProductImages = images.data;
 
-      const stock = await axios
+      const stock = await this.$axios
         .get(`/product/fetch/stock/${this.$route.params.id}`)
         .catch((err) => console.log(err));
       this.currentProductStock = stock.data;
@@ -93,30 +91,47 @@ export default {
       this.$refs.mySwiper.$swiper.slidePrev();
     },
     async addToCart() {
-      delete this.currentProduct.specification;
-      
-      this.currentProduct.stock = [];
-      this.currentProductStock.forEach(item => { 
-        this.currentProduct.stock.push(item.color)
-      })
+      let token = this.$cookies.get("jwt");
 
-      let oldCookie = cookies.get("product");
-     
-      if (oldCookie === undefined) {
-        cookies.set("product", JSON.stringify(this.currentProduct) + ";");
+      //If user is not Logged in
+      if (this.$cookies.get("jwt") === undefined) {
+        delete this.currentProduct.specification;
 
-      } else if (
-        oldCookie.includes(this.$route.params.id) &&
-        oldCookie.includes(this.currentProduct.name)
-      ) {
-        return;
-      } else {
-        cookies.set(
-          "product",
-          oldCookie.concat(JSON.stringify(this.currentProduct) + ";")
-        );
+        this.currentProduct.stock = [];
+        this.currentProductStock.forEach((item) => {
+          this.currentProduct.stock.push(item.color);
+        });
+
+        let oldCookie = this.$cookies.get("product");
+
+        if (oldCookie === undefined) {
+          this.$cookies.set(
+            "product",
+            JSON.stringify(this.currentProduct) + ";"
+          );
+        } else if (
+          oldCookie.includes(this.$route.params.id) &&
+          oldCookie.includes(this.currentProduct.name)
+        ) {
+          return;
+        } else {
+          this.$cookies.set(
+            "product",
+            oldCookie.concat(JSON.stringify(this.currentProduct) + ";")
+          );
+        }
+        await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
       }
-      await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
+
+      //If user is logged in
+      const res = await this.$axios
+        .post(`/user/cart/${this.$route.params.id}`, null, {
+          headers: {
+            "Auth-token": token,
+          },
+        })
+        .catch((err) => console.log(err));
+      console.log(res.data);
     },
   },
 };

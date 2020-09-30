@@ -1,4 +1,4 @@
-import axios from "axios";
+
 
 export default {
   name: "Explore",
@@ -52,12 +52,12 @@ export default {
       });
       this.visibleProducts = this.$store.getters.GET_VISIBLE_PRODUCTS;
 
-      const allProducts = await axios
+      const allProducts = await this.$axios
         .get(`/product/show`)
         .catch((err) => console.log(err));
       this.totalProducts = allProducts.data;
 
-      const AllCategories = await axios
+      const AllCategories = await this.$axios
         .get(`/product/category/show`)
         .catch((err) => console.log(err));
       this.categories = AllCategories.data;
@@ -80,7 +80,7 @@ export default {
       let catIndex = this.categories[index].id;
 
       if (this.categories[index].selected === true) {
-        const res = await axios
+        const res = await this.$axios
           .get(`/product/related/${catIndex}`)
           .catch((err) => console.log(err));
         this.visibleProducts = res.data;
@@ -104,7 +104,7 @@ export default {
       if (this.priceRanges[priceIndex].selected === true) {
         let min = this.priceRanges[index].min;
         let max = this.priceRanges[index].max;
-        const res = await axios
+        const res = await this.$axios
           .get(`/product/client/price/${min}/${max}`)
           .catch((err) => console.log(err));
         this.visibleProducts = res.data;
@@ -124,7 +124,7 @@ export default {
     async fetchProductByPriceSort() {
       let sort = this.sortByPrice.indexOf(this.sortIndex);
 
-      const sortPrice = await axios
+      const sortPrice = await this.$axios
         .get(`/product/client/sort/price/${sort}`)
         .catch((err) => console.log(err));
       this.visibleProducts = sortPrice.data;
@@ -146,7 +146,7 @@ export default {
       }, 1000);
     },
     async searchSelected() {
-      const res = await axios(
+      const res = await this.$axios(
         `/product/client/search/${this.searchSelected}`
       ).catch((err) => console.log(err));
       // console.log(res.data);

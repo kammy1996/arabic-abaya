@@ -44,11 +44,37 @@
                 <a class="nav-link" href="/explore">All Abayas</a>
               </li>
               <li id="user-icon">
-                <a href="/user/registration">
+                <a v-if="token === undefined" href="/user/registration">
                   <img
+                    v-bind="attrs"
+                    v-on="on"
                     src="https://img.icons8.com/ios/25/000000/person-female.png"
-                  />
-                </a>
+                /></a>
+                <v-menu v-else open-on-hover offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-avatar
+                      v-bind="attrs"
+                      v-on="on"
+                      color="#CC9726"
+                      size="30"
+                      class="white--text"
+                      ><b>{{ initials }}</b></v-avatar
+                    >
+                  </template>
+
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title>Profile</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item>
+                      <a href=""
+                        ><v-list-item-title @click="userLogout"
+                          >Log out</v-list-item-title
+                        >
+                      </a>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
               </li>
               <li id="bag-icon">
                 <a href="/cart">
@@ -72,12 +98,42 @@
 <script>
 export default {
   name: "pageHeader",
+  data() {
+    return {
+      token: null,
+      userInfo: null,
+      initials: null,
+    };
+  },
   created() {
+    this.token = this.$cookies.get("jwt");
     this.getData();
   },
   methods: {
     async getData() {
+      if (this.token !== undefined) {
+        const res = await this.$axios
+          .get("/user/profile", {
+            headers: {
+              "Auth-token": this.token,
+            },
+          })
+          .catch((err) => console.log(err));
+        this.userInfo = res.data[0];
+
+        //Getting the Initials
+        let name = this.userInfo.full_name;
+        let splitName = name.split(" ");
+        let firstChar = splitName[0].charAt(0);
+        let secondChar = splitName[1].charAt(0);
+        let joinedChars = firstChar + secondChar;
+        this.initials = joinedChars.toUpperCase();
+      }
       await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
+    },
+    userLogout() {
+      this.$cookies.remove("jwt");
+      this.$router.push("/user/login");
     },
   },
   computed: {
