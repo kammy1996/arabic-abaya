@@ -46,8 +46,9 @@ export default {
         this.successMsg = res.data;
         this.userAddedSnackBar = true;
 
+        
         setTimeout(() => {
-          this.$refs.signup.reset();
+          this.$router.push('/user/login')
         }, 500);
       }
     },

@@ -120,18 +120,26 @@ export default {
             oldCookie.concat(JSON.stringify(this.currentProduct) + ";")
           );
         }
-        await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
+        await this.$store.dispatch("FETCH_CART_COUNT");
+
+        return;
       }
 
       //If user is logged in
+      let productId = this.$route.params.id;
       const res = await this.$axios
-        .post(`/user/cart/${this.$route.params.id}`, null, {
-          headers: {
-            "Auth-token": token,
-          },
-        })
+        .post(
+          `/user/cart/add`,
+          { productId },
+          {
+            headers: {
+              "Auth-token": token,
+            },
+          }
+        )
         .catch((err) => console.log(err));
       console.log(res.data);
+      await this.$store.dispatch("FETCH_CART_COUNT");
     },
   },
 };

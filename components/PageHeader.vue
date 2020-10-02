@@ -44,13 +44,43 @@
                 <a class="nav-link" href="/explore">All Abayas</a>
               </li>
               <li id="user-icon">
-                <a v-if="token === undefined" href="/user/registration">
-                  <img
-                    v-bind="attrs"
-                    v-on="on"
-                    src="https://img.icons8.com/ios/25/000000/person-female.png"
-                /></a>
-                <v-menu v-else open-on-hover offset-y>
+                <v-menu v-if="token === undefined" open-on-hover offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-avatar
+                      v-bind="attrs"
+                      v-on="on"
+                      size="27"
+                      class="white--text"
+                    >
+                      <img
+                        src="https://img.icons8.com/ios/25/000000/person-female.png"
+                    /></v-avatar>
+                  </template>
+                  <v-list>
+                    <router-link to="/user/registration">
+                      <v-list-item>
+                        <v-list-item-title>
+                          <v-icon large small color="black">
+                            mdi-account-plus
+                          </v-icon>
+                          &nbsp;&nbsp;&nbsp; Register</v-list-item-title
+                        >
+                      </v-list-item>
+                    </router-link>
+
+                    <router-link to="/user/login">
+                      <v-list-item>
+                        <v-list-item-title>
+                          <v-icon large small color="black">
+                            mdi-login
+                          </v-icon>
+                          &nbsp;&nbsp;&nbsp;Login</v-list-item-title
+                        >
+                      </v-list-item>
+                    </router-link>
+                  </v-list>
+                </v-menu>
+                <v-menu v-else-if="token !== undefined" open-on-hover offset-y>
                   <template v-slot:activator="{ on, attrs }">
                     <v-avatar
                       v-bind="attrs"
@@ -64,12 +94,45 @@
 
                   <v-list>
                     <v-list-item>
-                      <v-list-item-title>Profile</v-list-item-title>
+                      <router-link to="/user/profile">
+                        <v-list-item-title>
+                          <v-icon large small color="black">
+                            mdi-account-box
+                          </v-icon>
+                          &nbsp;&nbsp;&nbsp;Profile</v-list-item-title
+                        >
+                      </router-link>
                     </v-list-item>
+
                     <v-list-item>
-                      <a href=""
-                        ><v-list-item-title @click="userLogout"
-                          >Log out</v-list-item-title
+                      <a href="#">
+                        <v-list-item-title>
+                          <v-icon large small color="black">
+                            mdi-package
+                          </v-icon>
+                          &nbsp;&nbsp;&nbsp;My Orders</v-list-item-title
+                        >
+                      </a>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <a href="#">
+                        <v-list-item-title>
+                          <v-icon large small color="black">
+                            mdi-cog
+                          </v-icon>
+                          &nbsp;&nbsp;&nbsp;Settings</v-list-item-title
+                        >
+                      </a>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <a href="#"
+                        ><v-list-item-title @click="userLogout">
+                          <v-icon large small color="black">
+                            mdi-logout-variant
+                          </v-icon>
+                          &nbsp;&nbsp;&nbsp; Log out</v-list-item-title
                         >
                       </a>
                     </v-list-item>
@@ -96,49 +159,44 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "pageHeader",
   data() {
     return {
       token: null,
-      userInfo: null,
-      initials: null,
     };
   },
   created() {
-    this.token = this.$cookies.get("jwt");
     this.getData();
   },
   methods: {
     async getData() {
-      if (this.token !== undefined) {
-        const res = await this.$axios
-          .get("/user/profile", {
-            headers: {
-              "Auth-token": this.token,
-            },
-          })
-          .catch((err) => console.log(err));
-        this.userInfo = res.data[0];
-
-        //Getting the Initials
-        let name = this.userInfo.full_name;
-        let splitName = name.split(" ");
-        let firstChar = splitName[0].charAt(0);
-        let secondChar = splitName[1].charAt(0);
-        let joinedChars = firstChar + secondChar;
-        this.initials = joinedChars.toUpperCase();
-      }
-      await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
+      this.token = this.$cookies.get("jwt");
+      await this.$store.dispatch("FETCH_CART_COUNT");
+      if (this.token === undefined) return;
+      //If User is Logged in
+      await this.$store.dispatch("FETCH_LOGGED_IN_INFO", this.token);
+      await this.$store.dispatch("FETCH_CART_COUNT");
     },
     userLogout() {
       this.$cookies.remove("jwt");
+      this.getData();
       this.$router.push("/user/login");
     },
   },
   computed: {
-    cartCount() {
-      return this.$store.getters.GET_CART_COUNT_NOT_LOGGED_IN;
+    ...mapGetters({
+      cartCount: "GET_CART_COUNT",
+      initials: "GET_LOGGED_IN_INFO",
+    }),
+  },
+  watch: {
+    initials() {
+      this.getData();
+    },
+    token() {
+      this.getData();
     },
   },
 };

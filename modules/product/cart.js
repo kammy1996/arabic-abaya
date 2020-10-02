@@ -27,9 +27,11 @@ export default {
           .catch((err) => console.log(err));
         this.currentProduct = product.data.product;
         this.currentStock = product.data.stock;
+
         this.currentProduct.forEach((item) => {
           item.stock = [];
         });
+
         this.currentStock.forEach((item) => {
           this.currentProduct.forEach((product) => {
             if (item.product_id == product.id) {
@@ -37,13 +39,16 @@ export default {
             }
           });
         });
+
+        await this.$store.dispatch("FETCH_CART_COUNT");
+        return;
       }
 
       //If user is not Logged in
       if (this.sortCookie() === undefined) return;
       else this.currentProduct = this.sortCookie();
 
-      await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
+      await this.$store.dispatch("FETCH_CART_COUNT");
     },
     fetchCartProductImages(product) {
       return (
@@ -70,11 +75,13 @@ export default {
           this.$cookies.remove("product");
         }
         if (this.sortCookie() === undefined) {
-          await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN", 0);
+          await this.$store.dispatch("FETCH_CART_COUNT", 0);
           return;
         } else this.currentProduct = this.sortCookie();
 
-        await this.$store.dispatch("FETCH_CART_COUNT_NOT_LOGGED_IN");
+        await this.$store.dispatch("FETCH_CART_COUNT");
+
+        return;
       }
 
       //If the user is Logged in
@@ -90,6 +97,7 @@ export default {
           .catch((err) => console.log(err));
 
         this.currentProduct.splice(index, 1);
+        await this.$store.dispatch("FETCH_CART_COUNT");
       }
     },
     sortCookie() {
