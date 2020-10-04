@@ -5,9 +5,9 @@ export default {
     return {
       currentProduct: [],
       currentStock: [],
-      quantity: ["1", "2", "3", "4", "5"],
       cartTotal: null,
       token: null,
+      valid: false,
     };
   },
   created() {
@@ -30,6 +30,7 @@ export default {
 
         this.currentProduct.forEach((item) => {
           item.stock = [];
+          item.quantity = ["1", "2", "3", "4", "5"];
         });
 
         this.currentStock.forEach((item) => {
@@ -122,6 +123,29 @@ export default {
         });
 
         return finalCookie;
+      }
+    },
+    continueToOrder() {
+      // if the user is not Signed in
+      this.$refs.form.validate();
+
+      if (this.valid === true) {
+        this.$cookies.remove("ordered-products"); //Removing Existing Cookie
+        if (this.$cookies.get("ordered-products") === undefined) {
+          let finalArr = [];
+          this.currentProduct.forEach((item) => {
+            let stringed = JSON.stringify(item) + ";";
+            finalArr.push(stringed);
+          });
+          let cookieString = finalArr.join("");
+          this.$cookies.set("ordered-products", cookieString);
+        }
+        //If the user is not logged in
+        if (this.token === undefined) {
+          this.$router.push(`/user/info`);
+        } else {
+          this.$router.push(`/order`);
+        }
       }
     },
   },

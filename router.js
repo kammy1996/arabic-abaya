@@ -8,6 +8,7 @@ import cart from "./pages/product/cart"
 import registration from "./pages/user/registration"
 import login from "./pages/user/login"
 import profile from "./pages/user/profile"
+import order from "./pages/order/order"
 
 Vue.use(Router);
 
@@ -48,7 +49,11 @@ export default new Router({
        path :"/user/profile",
        name:"userProfile",
        component:profile
-     }
-
+     },
+     {
+     path:"/order",
+     name:"order",
+     component:order
+    }
   ],
 });
