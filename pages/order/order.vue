@@ -132,7 +132,7 @@
                       {{ product.name }}
                     </v-card-title>
                     <v-divider></v-divider>
-                    <p><b> Color</b>: {{ product.stock }}</p>
+                    <p><b> Color</b>: {{ product.color }}</p>
                     <p><b> Quantity</b>: {{ product.quantity }}</p>
 
                     <v-card-title

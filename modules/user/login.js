@@ -46,7 +46,7 @@ export default {
         await this.$store.dispatch("FETCH_CART_COUNT");
 
         setTimeout(() => {
-          this.$router.push("/explore");
+          this.$router.push("/cart");
         }, 500);
 
         //If there is any previous product in Cookies before log in

@@ -46,10 +46,9 @@ export default {
         this.successMsg = res.data;
         this.userAddedSnackBar = true;
 
-        
-        setTimeout(() => {
-          this.$router.push('/user/login')
-        }, 500);
+        // setTimeout(() => {
+        //   this.$router.push("/user/login");
+        // }, 500);
       }
     },
   },

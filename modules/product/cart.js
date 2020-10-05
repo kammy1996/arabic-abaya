@@ -29,14 +29,16 @@ export default {
         this.currentStock = product.data.stock;
 
         this.currentProduct.forEach((item) => {
+          item.quantity = "1";
           item.stock = [];
-          item.quantity = ["1", "2", "3", "4", "5"];
+          item.quantities = ["1", "2", "3", "4", "5"];
         });
 
         this.currentStock.forEach((item) => {
           this.currentProduct.forEach((product) => {
             if (item.product_id == product.id) {
               product.stock.push(item.color);
+              product.color = product.stock[0];
             }
           });
         });
@@ -122,30 +124,31 @@ export default {
           finalCookie.push(parsed);
         });
 
+        finalCookie.forEach((item) => {
+          item.quantity = "1";
+          item.quantities = ["1", "2", "3", "4", "5"];
+          item.color = item.stock[0];
+        });
+
         return finalCookie;
       }
     },
     continueToOrder() {
-      // if the user is not Signed in
-      this.$refs.form.validate();
-
-      if (this.valid === true) {
-        this.$cookies.remove("ordered-products"); //Removing Existing Cookie
-        if (this.$cookies.get("ordered-products") === undefined) {
-          let finalArr = [];
-          this.currentProduct.forEach((item) => {
-            let stringed = JSON.stringify(item) + ";";
-            finalArr.push(stringed);
-          });
-          let cookieString = finalArr.join("");
-          this.$cookies.set("ordered-products", cookieString);
-        }
-        //If the user is not logged in
-        if (this.token === undefined) {
-          this.$router.push(`/user/info`);
-        } else {
-          this.$router.push(`/order`);
-        }
+      this.$cookies.remove("ordered-products"); //Removing Existing Cookie
+      if (this.$cookies.get("ordered-products") === undefined) {
+        let finalArr = [];
+        this.currentProduct.forEach((item) => {
+          let stringed = JSON.stringify(item) + ";";
+          finalArr.push(stringed);
+        });
+        let cookieString = finalArr.join("");
+        this.$cookies.set("ordered-products", cookieString);
+      }
+      if (this.token === undefined) {
+        //if the user is not signed in
+        this.$router.push(`/user/login`);
+      } else {
+        this.$router.push(`/order`);
       }
     },
   },
