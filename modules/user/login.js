@@ -8,7 +8,6 @@ export default {
       },
       pass: false,
       loginStatus: null,
-
       userLoginSnackBar: false,
       valid: false,
       genRules: [
@@ -36,18 +35,21 @@ export default {
         const res = await this.$axios
           .post(`/user/login`, userData)
           .catch((err) => console.log(err));
-        let token = res.data.token;
+        if (res.data.message) {
+          this.loginStatus = res.data.message;
+          this.userLoginSnackBar = true;
+        }
+        this.token = res.data.token;
 
-        if (token === undefined) return;
-        else this.$cookies.set("jwt", token, { expires: 7 });
-        this.token = this.$cookies.get("jwt");
+        if (this.token === undefined || this.token === null) return;
+        else this.$cookies.set("jwt", this.token, { expires: 7 });
 
         await this.$store.dispatch("FETCH_LOGGED_IN_INFO", this.token);
         await this.$store.dispatch("FETCH_CART_COUNT");
 
         setTimeout(() => {
           this.$router.push("/cart");
-        }, 500);
+        }, 200);
 
         //If there is any previous product in Cookies before log in
         if (this.token === undefined) return;

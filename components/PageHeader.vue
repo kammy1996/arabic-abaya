@@ -180,9 +180,11 @@ export default {
       await this.$store.dispatch("FETCH_CART_COUNT");
     },
     userLogout() {
-      this.$cookies.remove("jwt");
+      this.$cookies.remove("jwt");// removing token 
+      this.$cookies.remove("ordered-products")
       this.getData();
       this.$router.push("/user/login");
+
     },
   },
   computed: {

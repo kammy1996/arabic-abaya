@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
     visibleProducts: [],
     cartCount: null,
     userInitials: null,
+    userInfo: null,
   },
   mutations: {
     SET_VISIBLE_PRODUCTS(state, payload) {
@@ -20,6 +21,9 @@ export const store = new Vuex.Store({
     },
     SET_LOGGED_IN_INFO(state, payload) {
       state.userInitials = payload;
+    },
+    SET_USER_INFO(state, payload) {
+      state.userInfo = payload;
     },
   },
   actions: {
@@ -77,6 +81,7 @@ export const store = new Vuex.Store({
       let initials = joinedChars.toUpperCase();
 
       commit("SET_LOGGED_IN_INFO", initials);
+      commit(`SET_USER_INFO`, userInfo);
     },
   },
   getters: {
@@ -88,6 +93,9 @@ export const store = new Vuex.Store({
     },
     GET_LOGGED_IN_INFO(state) {
       return state.userInitials;
+    },
+    GET_USER_INFO(state) {
+      return state.userInfo;
     },
   },
 });
