@@ -35,11 +35,11 @@ export default {
         const res = await this.$axios
           .post(`/user/login`, userData)
           .catch((err) => console.log(err));
+        this.token = res.data.token;
         if (res.data.message) {
           this.loginStatus = res.data.message;
           this.userLoginSnackBar = true;
         }
-        this.token = res.data.token;
 
         if (this.token === undefined || this.token === null) return;
         else this.$cookies.set("jwt", this.token, { expires: 7 });
@@ -48,28 +48,26 @@ export default {
         await this.$store.dispatch("FETCH_CART_COUNT");
 
         setTimeout(() => {
-          this.$router.push("/cart");
-        }, 200);
+          this.$router.push(`/cart`);
+        }, 500);
 
         //If there is any previous product in Cookies before log in
-        if (this.token === undefined) return;
-        else {
-          let productId = this.getProductsFromCookies();
-          if (productId === undefined) return;
-          await this.$axios
-            .post(
-              `/user/cart/add`,
-              { productId },
-              {
-                headers: {
-                  "Auth-token": this.token,
-                },
-              }
-            )
-            .catch((err) => console.log(err));
-          this.$cookies.remove("product");
-          await this.$store.dispatch("FETCH_CART_COUNT");
-        }
+        let productId = this.getProductsFromCookies();
+        if (productId === undefined) return;
+        await this.$axios
+          .post(
+            `/user/cart/add`,
+            { productId },
+            {
+              headers: {
+                "Auth-token": this.token,
+              },
+            }
+          )
+          .catch((err) => console.log(err))
+          .then((res) => res);
+        this.$cookies.remove("product");
+        await this.$store.dispatch("FETCH_CART_COUNT");
       }
     },
     getProductsFromCookies() {

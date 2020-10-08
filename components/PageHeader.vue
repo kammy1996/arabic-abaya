@@ -174,17 +174,17 @@ export default {
     async getData() {
       this.token = this.$cookies.get("jwt");
       await this.$store.dispatch("FETCH_CART_COUNT");
-      if (this.token === undefined) return;
+      if (this.token === undefined || this.token === null) return;
       //If User is Logged in
       await this.$store.dispatch("FETCH_LOGGED_IN_INFO", this.token);
       await this.$store.dispatch("FETCH_CART_COUNT");
     },
     userLogout() {
-      this.$cookies.remove("jwt");// removing token 
-      this.$cookies.remove("ordered-products")
+      this.$cookies.remove("jwt"); // removing token
+      this.$cookies.remove("ordered-products");
       this.getData();
-      this.$router.push("/user/login");
-
+      this.$router.push(`/user/login`);
+      this.$router.go();
     },
   },
   computed: {

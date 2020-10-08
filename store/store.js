@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
     visibleProducts: [],
     cartCount: null,
     userInitials: null,
-    userInfo: null,
+    userInfo: [],
+    userAddresses: [],
   },
   mutations: {
     SET_VISIBLE_PRODUCTS(state, payload) {
@@ -24,6 +25,9 @@ export const store = new Vuex.Store({
     },
     SET_USER_INFO(state, payload) {
       state.userInfo = payload;
+    },
+    SET_USER_ADDRESSES(state, payload) {
+      state.userAddresses = payload;
     },
   },
   actions: {
@@ -70,10 +74,11 @@ export const store = new Vuex.Store({
           },
         })
         .catch((err) => console.log(err));
-      let userInfo = res.data[0];
+      let userInfo = res.data.userDetails;
+      let userAddresses = res.data.addresses;
 
       //Getting the Initials
-      let name = userInfo.full_name;
+      let name = userInfo[0].full_name;
       let splitName = name.split(" ");
       let firstChar = splitName[0].charAt(0);
       let secondChar = splitName[1].charAt(0);
@@ -82,6 +87,7 @@ export const store = new Vuex.Store({
 
       commit("SET_LOGGED_IN_INFO", initials);
       commit(`SET_USER_INFO`, userInfo);
+      commit(`SET_USER_ADDRESSES`, userAddresses);
     },
   },
   getters: {
@@ -96,6 +102,9 @@ export const store = new Vuex.Store({
     },
     GET_USER_INFO(state) {
       return state.userInfo;
+    },
+    GET_USER_ADDRESSES(state) {
+      return state.userAddresses;
     },
   },
 });
