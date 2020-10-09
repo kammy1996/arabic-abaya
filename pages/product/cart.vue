@@ -2,6 +2,7 @@
   <v-container>
     <div class="text-center">
       <h2>Your Cart</h2>
+
       <img src="../../assets/images/title-underline.png" />
       <div class="space-30"></div>
     </div>
@@ -18,7 +19,7 @@
               :key="index"
             >
               <v-col cols="4">
-                <img :src="fetchCartProductImages(product)" width="70%" />
+                <img :src="fetchProductImages(product)" width="70%" />
                 <div class="space-30"></div>
 
                 <v-btn

@@ -1,6 +1,9 @@
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/swiper-bundle.css";
 
+//mixins 
+import common from "../../helpers/mixins/common";
+
 export default {
   name: "Details",
   components: {
@@ -23,15 +26,16 @@ export default {
       addedToCartMessage: "",
     };
   },
-  created() {
-    this.getData();
-  },
+
   methods: {
     async getData() {
+    
       const product = await this.$axios
         .get(`/product/${this.$route.params.id}`)
         .catch((err) => console.log(err));
       this.currentProduct = product.data[0];
+      
+      document.title = this.currentProduct.name
 
       const similar = await this.$axios
         .get(`/product/related/${this.currentProduct.category_id}`)
@@ -142,4 +146,5 @@ export default {
       await this.$store.dispatch("FETCH_CART_COUNT");
     },
   },
+  mixins:[common]
 };

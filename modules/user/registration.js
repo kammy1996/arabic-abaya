@@ -30,6 +30,9 @@ export default {
       valid: true,
     };
   },
+  created() { 
+    document.title = this.$route.meta.title;
+  },
   methods: {
     async addUser() {
       this.$refs.signup.validate();
@@ -45,10 +48,6 @@ export default {
           .catch((err) => console.log(err));
         this.successMsg = res.data;
         this.userAddedSnackBar = true;
-
-        // setTimeout(() => {
-        //   this.$router.push("/user/login");
-        // }, 500);
       }
     },
   },

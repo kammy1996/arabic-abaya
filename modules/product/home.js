@@ -13,7 +13,4 @@ export default {
       overlay: false,
     };
   },
-  created() {
-    console.log(process.env.VUE_APP_HOST_URL);
-  },
 };

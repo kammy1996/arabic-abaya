@@ -1,3 +1,5 @@
+import common from "../../helpers/mixins/common"
+
 export default {
   name: "order",
   data() {
@@ -29,9 +31,6 @@ export default {
       isAddressSelected: "",
       isAddressSelectedSnackbar: false,
     };
-  },
-  created() {
-    this.getData();
   },
   methods: {
     async getData() {
@@ -199,4 +198,5 @@ export default {
       }
     },
   },
+  mixins:[common]
 };

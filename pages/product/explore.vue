@@ -70,7 +70,7 @@
                 <div class="product-template">
                   <v-card class="mx-auto">
                     <a :href="`/product/${product.id}`">
-                      <v-img :src="getImagePath(product)"></v-img>
+                      <v-img :src="fetchProductImages(product)"></v-img>
                     </a>
 
                     <v-tooltip bottom color="black">

@@ -1,3 +1,5 @@
+
+
 export default {
   name: "Login",
   data() {
@@ -22,6 +24,10 @@ export default {
       ],
       token: null,
     };
+  },
+
+  created() { 
+    document.title = this.$route.meta.title;
   },
 
   methods: {

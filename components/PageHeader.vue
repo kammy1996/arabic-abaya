@@ -57,7 +57,7 @@
                     /></v-avatar>
                   </template>
                   <v-list>
-                    <router-link to="/user/registration">
+                    <a href="/user/registration">
                       <v-list-item>
                         <v-list-item-title>
                           <v-icon large small color="black">
@@ -66,7 +66,7 @@
                           &nbsp;&nbsp;&nbsp; Register</v-list-item-title
                         >
                       </v-list-item>
-                    </router-link>
+                    </a>
 
                     <router-link to="/user/login">
                       <v-list-item>
@@ -94,14 +94,14 @@
 
                   <v-list>
                     <v-list-item>
-                      <router-link to="/user/profile">
+                      <a href="/user/profile">
                         <v-list-item-title>
                           <v-icon large small color="black">
                             mdi-account-box
                           </v-icon>
                           &nbsp;&nbsp;&nbsp;Profile</v-list-item-title
                         >
-                      </router-link>
+                      </a>
                     </v-list-item>
 
                     <v-list-item>
@@ -160,6 +160,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import common from "../helpers/mixins/common";
 export default {
   name: "pageHeader",
   data() {
@@ -167,9 +168,7 @@ export default {
       token: null,
     };
   },
-  created() {
-    this.getData();
-  },
+
   methods: {
     async getData() {
       this.token = this.$cookies.get("jwt");
@@ -201,5 +200,6 @@ export default {
       this.getData();
     },
   },
+  mixins: [common],
 };
 </script>

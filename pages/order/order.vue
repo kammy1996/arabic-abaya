@@ -208,7 +208,7 @@
                   :key="index"
                 >
                   <v-col cols="4">
-                    <img :src="fetchCartProductImages(product)" width="70%" />
+                    <img :src="fetchProductImages(product)" width="70%" />
                     <div class="space-30"></div>
                   </v-col>
                   <v-col cols="8">

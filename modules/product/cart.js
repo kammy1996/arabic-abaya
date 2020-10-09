@@ -1,4 +1,6 @@
 // import axios from "axios";
+import common from "../../helpers/mixins/common"
+
 export default {
   name: "cart",
   data() {
@@ -161,4 +163,5 @@ export default {
       }
     },
   },
+  mixins:[common]
 };

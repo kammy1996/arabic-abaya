@@ -1,4 +1,4 @@
-
+import common from "../../helpers/mixins/common";
 
 export default {
   name: "Explore",
@@ -41,9 +41,7 @@ export default {
       },
     ],
   }),
-  created() {
-    this.getData();
-  },
+
   methods: {
     async getData() {
       await this.$store.dispatch("FETCH_VISIBLE_PRODUCTS", {
@@ -66,15 +64,7 @@ export default {
         item.selected = false;
       });
     },
-    getImagePath(product) {
-      return (
-        process.env.VUE_APP_HOST_URL +
-        "/" +
-        product.name +
-        "/" +
-        product.file_name
-      );
-    },
+
     async fetchProductByCategory(index) {
       this.overlay = true;
       let catIndex = this.categories[index].id;
@@ -157,4 +147,6 @@ export default {
       }
     },
   },
+
+  mixins: [common],
 };
