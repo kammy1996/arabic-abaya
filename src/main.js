@@ -15,7 +15,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../assets/scss/home.css";
 import "../assets/scss/common.css";
 
-axios.defaults.baseURL = "http://localhost:3000/api";
+axios.defaults.baseURL = "http://localhost:5000/api";
 
 //Global Variables to use (Please Note : Does not work in store)
 Vue.prototype.$axios = axios;
@@ -24,7 +24,7 @@ Vue.prototype.$cookies = cookies;
 new Vue({
   el: "#app",
   vuetify,
-  router,
+  router, 
   store,
   render: (h) => h(App),
 });
