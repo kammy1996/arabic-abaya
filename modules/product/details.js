@@ -31,7 +31,7 @@ export default {
     async getData() {
     
       const product = await this.$axios
-        .get(`/product/${this.$route.params.id}/details`)
+        .get(`/product/${this.$route.params.id}`)
         .catch((err) => console.log(err));
       this.currentProduct = product.data[0];
       
