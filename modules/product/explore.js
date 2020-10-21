@@ -49,7 +49,7 @@ export default {
         currentPage: this.currentPage,
       });
       this.visibleProducts = this.$store.getters.GET_VISIBLE_PRODUCTS;
-
+      
       const allProducts = await this.$axios
         .get(`/product/show`)
         .catch((err) => console.log(err));

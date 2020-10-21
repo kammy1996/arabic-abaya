@@ -86,7 +86,8 @@ export default {
       this.imagesByColor = this.currentProductStock[index].files;
     },
     fetchImagesByProductId(product, image) {
-      return process.env.VUE_APP_HOST_URL + "/" + product.name + "/" + image;
+      let name = product.name.toLowerCase();
+      return process.env.VUE_APP_HOST_URL + "/" + name + "/" + image;
     },
     slideNext() {
       this.$refs.mySwiper.$swiper.slideNext();

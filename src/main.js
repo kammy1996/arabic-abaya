@@ -15,7 +15,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../assets/scss/home.css";
 import "../assets/scss/common.css";
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL = process.env.VUE_APP_HOST_URL + '/api';
 
 //Global Variables to use (Please Note : Does not work in store)
 Vue.prototype.$axios = axios;

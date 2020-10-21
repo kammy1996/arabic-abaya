@@ -6,10 +6,12 @@ export default {
   },
   methods: {
     fetchProductImages(product) {
+      let name = product.name.toLowerCase();
+    
       return (
         process.env.VUE_APP_HOST_URL +
         "/" +
-        product.name +
+        name +
         "/" +
         product.file_name
       );
